@@ -3,12 +3,10 @@
 \alias{mpo}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+Modern Portfolio Optimization
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+MPO is a companion package to the text Modern Portfolio Optimization with R, second edition by R. Douglas Martin, Bernd Scherer, and Guy Yollin.
 }
 \details{
 \tabular{ll}{
@@ -16,18 +14,17 @@ Package: \tab mpo\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
 Date: \tab 2013-09-03\cr
-License: \tab What license is it under?\cr
+License: \tab GPL-2\cr
 }
 ~~ An overview of how to use the package, including the most important functions ~~
 }
 \author{
-Who wrote it
-
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+Guy Yollin, Doug Martin\cr
+Maintainer: Guy Yollin <gyollin@r-programming.org>
 }
 \references{
-~~ Literature or other references for background information ~~
+Bernd Scherer and R. Douglas Martin (2007).\cr
+Introduction to Modern Portfolio Optimization with NuOPT, S-PLUS and S+Bayes
 }
 \keyword{ package }
 \seealso{
@@ -35,5 +32,6 @@ Maintainer: Who to complain to <yourfault@somewhere.net>
 ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
 \examples{
-~~ simple examples of the most important functions ~~
+returns = midcap.ts[,1:10]
+mathEfrontRisky(returns, 10, display=FALSE, digits = 3)
 }

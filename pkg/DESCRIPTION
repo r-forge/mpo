@@ -1,13 +1,14 @@
 Package: mpo
 Type: Package
 Title: Companion to Modern Portfolio Optimization with R, 2nd Edition
-Version: 0.1
-Date: 2013-09-26
+Version: 0.11
+Date: 2014-06-06
 Author: Guy Yollin, Doug Martin
 Maintainer: Guy Yollin <gyollin@r-programming.org>
 Description: MPO is a companion package to the text Modern Portfolio Optimization with R,
 	second edition by R. Douglas Martin, Bernd Scherer, and Guy Yollin.
 License: GPL-2
 Depends: xts, lattice
+Suggests: testthat
 LazyLoad: yes
 LazyData: yes

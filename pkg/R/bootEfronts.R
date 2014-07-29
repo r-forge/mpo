@@ -38,6 +38,5 @@ bootEfronts = function(returns,pspec, rf=.03, npoints=20, B = 3, Seed = NULL, gm
   out = round(apply(gmvMaxSR,2,sd),digits)
   legend("topleft",bty = "n",title = "   STANDARD DEVIATIONS",legend = 
            c(paste("gmvMu:", out[1]),paste("gmvSd:", out[2]),
-             paste("tanMu:", out[3]),paste("tabSd:", out[4]),
-             paste("tanSR:", out[5])))
+             paste("tanMu:", out[3]),paste("tanSd:", out[4])))
 }

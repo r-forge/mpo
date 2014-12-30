@@ -16,4 +16,3 @@ powerUtilities = function()
        lty = c(3,1,8),lwd = 2)
   dev.off()
 }
-powerUtilities()

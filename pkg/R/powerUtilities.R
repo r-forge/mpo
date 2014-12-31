@@ -3,7 +3,9 @@ powerUtilities = function()
   x = seq(.01,3,.01)
   lwd = 2
   y = log(x)
-  plot(x,y,type = "l",ylim =c(-8,2),lwd = lwd,xlab = "WEALTH V",ylab = "U(V)")
+  ylim = c(min(y),max(y))
+  plot(x,y,type = "l",ylim =c(-8,2),lwd = lwd,xlim = c(0,3.01),
+       xlab = "WEALTH V",ylab = "U(V)")
   gamma = -1
   y = (x^gamma - 1)/gamma
   lines(x,y,lty = 8,lwd = lwd)

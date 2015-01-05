@@ -11,7 +11,7 @@ mathTport = function(returns, rf = 0.01,digits = NULL)
 	muTan <- as.numeric(t(mu) %*% wtsTan)
 	volTan <- (t(mu.e) %*% z)^0.5/abs(cc)
     if(is.null(digits))
-	   {out = list(wtsTan = wtsTan, muTan = muTan, volTan = volTan)}
+	   {out = list(wts = wtsTan, mu = muTan, vol = volTan)}
         else
         {out = list(WTS.TAN= wtsTan, MU.TAN = muTan, VOL.GMV = volTan)
          out = lapply(out,round,digits=digits)}

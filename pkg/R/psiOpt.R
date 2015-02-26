@@ -23,15 +23,3 @@ psiOpt = function(r,c)
   }
   psi
 }
-r = seq(-5,5,.01)
-c90 = 2.832
-c95 = 3.18
-c99 = 3.87
-y90 = psiOpt(r,c90)
-y95 = psiOpt(r,c95)
-y99 = psiOpt(r,c99)
-plot(r,y99,type = "l",xlab="",ylab = "PSI(r)",lty = 3)
-lines(r,y95,lwd = 1.5)
-lines(r,y90,lty = 2)
-eff.text = c("99 %","95 %","90 %")
-legend("topleft",lty=c(3,1,2),eff.text,bty = "n")

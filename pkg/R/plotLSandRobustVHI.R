@@ -5,7 +5,7 @@ x=(ret[,2]-ret[,3])*100
 y=(ret[,1]-ret[,3])*100
 fit.ls = lm(y~x)
 fit.rob = lmRob(y~x, control=lmRob.control(efficiency=0.99))
-plot(x,y, pch=20, xlab="Market Returns %",ylab="VHI RETURNS (%)",type="n",main="")
+plot(x,y, pch=20, xlab="Market Returns %",ylab="VHI Returns (%)",type="n",main="")
 abline(fit.rob, col="black", lty=1, lwd=2)
 abline(fit.ls, col="red", lty=2, lwd=2)
 abline(fit.rob$coef[1]+3*1.29*fit.rob$scale, fit.rob$coef[2], lty=3, col="black")

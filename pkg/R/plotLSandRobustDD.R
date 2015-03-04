@@ -1,4 +1,4 @@
-plotLSandRobustVHI = function(x)
+plotLSandRobustDD = function(x)
 {
 ret = retDD
 x=(ret[,2]-ret[,3])*100

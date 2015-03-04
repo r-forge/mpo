@@ -19,9 +19,3 @@ id = which(retDD <=-0.24)
 arrows(x[id]+1, y[id]+11, x[id]+0.1, y[id]+1, angle=15, length=0.1)
 text(x[id]+1, y[id]+12.5, labels="Oct. 20 1987", cex=0.9)
 }
-
-library(xts)
-library(robust)
-library(lattice)
-load("ret4withOutliers.rda")
-plotLSandRobustVHI(retDD)

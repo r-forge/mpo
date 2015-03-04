@@ -18,9 +18,3 @@ legend("topleft",
                 expression("       LS " ~ hat(beta)==1.16~(0.31))),
        lty=1:2, col=c("black", "red"), bty="n", lwd=c(2,2), cex=1.2)
 }
-
-library(xts)
-library(robust)
-library(lattice)
-load("ret4withOutliers.rda")
-plotLSandRobustVHI(retVHI)

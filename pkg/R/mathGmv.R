@@ -1,14 +1,15 @@
 #' Global Minimum Variance (GMV) Portfolio
 #' 
-#'  Compute the weights, mean return and volatility of a GMV portfolio.
-#'  
-#'  @param returns matrix of asset returns
-#'  @param digits integer indicating the number of decimal places
-#'  
+#' Compute the weights, mean return and volatility of a GMV portfolio.
+#' 
+#' 
+#' @param returns matrix of asset returns
+#' @param digits integer indicating the number of decimal places
 #' @examples
 #' 
 #' returns = midcap.ts[, 1:10]
 #' mathGmv(returns)
+#' 
 mathGmv <-
 function(returns,digits = NULL)
 {

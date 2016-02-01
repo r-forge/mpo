@@ -1,22 +1,31 @@
-library(quadprog)
-library(Rglpk)
-
-# Constraints Object for solve.QP
-
+#' Wrapper of constraints to constraint object
+#' @param A
+#' @param b
+#' @param meq
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @seealso \code{\link{}}
+#' @keywords constraint
+#' @examples
+#' @export
 constraints = function(A,b,meq)
 {
     list(A=A,b=b,meq=meq)
 }
 
-# GMV Portfolio with Constraints
-# If cset = NULL, then unconstrained gmv
-# For back-test use default wts.only = T
-# For efficient frontier use wts.only = Fgm
-# For  printout of wts, mu and sd use digits = 3 or 4
-require("corpcor")
 
+#' GMV Portfolio with Constraints
+#' @param cset, if cset = NULL, then unconstrained gmv
+#' @param wts.only, for back-test use default wts.only = T, for efficient frontier use wts.only = F
+#' @param digits
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @examples
+#' @export
 gmv = function(returns,cset=NULL,wts.only=T,digits = NULL)
 {
+	require(quadprog)
+	require(Rglpk)
+	require(corpcor)
    returns.old <- returns
    
   if (any(c("turnover","propcost") %in% cset$clist.names)){
@@ -79,15 +88,29 @@ gmv = function(returns,cset=NULL,wts.only=T,digits = NULL)
     {if(wts.only) wts else mu}
 }
 
-
+#' Compute the minimu of mean return using GMV
+#' @param returns
+#' @param cset
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @seealso \code{\link{}}
+#' @keywords constraint
+#' @examples
+#' @export
 minmu = function(returns, cset = NULL)
 {
     gmv(returns,cset,wts.only = F)
 }
 
-# Max Mean Return Portfolio with Constraints
-# This is primarily to compute the maximum mean return with constraints
 
+#' Compute the Max Mean Return Portfolio with Constraints
+#' This is primarily to compute the maximum mean return with constraints
+#' @param returns
+#' @param cset
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @seealso \code{\link{}}
+#' @keywords constraint
+#' @examples
+#' @export
 maxmu = function(returns,cset,mu.only=TRUE,digits = NULL,verbose = FALSE)
 {
   returns.old <- returns
@@ -152,12 +175,16 @@ maxmu = function(returns,cset,mu.only=TRUE,digits = NULL,verbose = FALSE)
 }
 
 
-# MVO Portfolio with Constraints
-# If cset = NULL, then unconstrained mvo
-# For back-test use default wts.only = T
-# For efficient frontier use wts.only = F
-# For  printout of wts, mu and sd use digits = 3 or 4
-
+#' MVO Portfolio with Constraints
+#' @param returns
+#' @param mu0
+#' @param cset
+#' @param wts.only
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @seealso \code{\link{}}
+#' @keywords constraint
+#' @examples
+#' @export
 mvo = function(returns,mu0,cset=NULL,wts.only=T,digits = NULL)
 {
  

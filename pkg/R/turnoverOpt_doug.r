@@ -1,3 +1,19 @@
+#' Specify turnover constraints using a version derived by Doug Martin
+#' @param returns, stock returns in xts format.
+#' @param mu.target, default is NULL, specify the target mean return
+#' @param wts.inital, the initial weight
+#' @param toc, the turnover cost
+#' @param long.only, default is TRUE, specify if long only constraint is required
+#' @param printDandA, default is FALSE, specify if print the D and A matrix
+#' @details use \code{table.Performance.pool} to check available metrics. recoded SharpeRatio 
+#' @author Doug Martin, Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @seealso \code{\link{turnoverOpt}}}
+#' @keywords turnover, constraints
+#' @examples
+#' @export
+
+
+
 TurnoverOpt_doug <- function(returns,mu.target = NULL,wts.initial,toc,
                         long.only = TRUE,printDandA = FALSE){
   nassets <- ncol(returns)

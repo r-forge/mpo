@@ -1,12 +1,21 @@
-library(quadprog)
-library(Rglpk)
-library(xts)
-# source("barplot.wts.r")
-# source("mvo.constrained.r")
-# source("constraint.sets.r")
+#' Compute Efficient Frontier of Mean Variance Optimization
+#' @param returns
+#' @param cset
+#' @param list.arg
+#' @param npoints
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @seealso \code{\link{efrontPlot}}
+#' @keywords efficient frontier
+#' @examples
+#' @export
 
 efrontMV = function(returns,cset = NULL, list.arg= NULL, npoints = 10)
 {
+	
+	require(quadprog)
+	require(Rglpk)
+	require(xts)
+	
     if(is.null(cset))
     {
     mu = apply(returns,2,mean)
@@ -49,9 +58,25 @@ mu.max = .999*maxmu(returns,cset.mu)
     efront
 }
 
-# efrontMV(returns, cset, npoints = 10,list.arg)
 
-# Plot Efronts
+
+#' Plot Efficient Frontier of Mean Variance Optimization
+#' @param returns
+#' @param cset
+#' @param mu.min
+#' @param mu.max
+#' @param rf
+#' @param npoints
+#' @param wts.xlab
+#' @param printout
+#' @param bar.ylim
+#' @param list.arg
+#' @param is.fancy
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @seealso \code{\link{efrontPlot}}
+#' @keywords efficient frontier
+#' @examples
+#' @export
 efrontPlot = function(returns,cset = NULL,mu.min = NULL, mu.max = NULL, rf = NULL,
                          npoints = 10,wts.plot = T, wts.xlab="VOL",printout = F,bar.ylim = c(0,2),
                       list.arg=NULL, is.fancy=TRUE)
@@ -106,5 +131,4 @@ efrontPlot = function(returns,cset = NULL,mu.min = NULL, mu.max = NULL, rf = NUL
     {barplot.wts(wts.efront,legend.text = T,col = topo.colors(p),ylab = "WEIGHTS",xlab = wts.xlab, bar.ylim = bar.ylim)}
     par(mfrow = c(1,1))
 }
-#  
-# efrontPlot(returns, cset=cset, rf = .003, npoints = 50,wts.plot = T,list.arg=list.arg, wts.xlab="VOL")
+

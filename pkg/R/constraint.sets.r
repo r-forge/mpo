@@ -1,3 +1,11 @@
+#' Constraint specifications
+#' @param NULL
+#' @details 
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @family constraints
+#' @examples
+#' @export
 # Full Investment Constraints
 cset.sum <- function(returns, sum=1){
   p = ncol(returns)
@@ -11,6 +19,14 @@ cset.sum <- function(returns, sum=1){
 }
 
 
+#' Constraint specifications
+#' @param NULL
+#' @details 
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @family constraints
+#' @examples
+#' @export
 
 # Long-Only Constraints
 cset.lo <- function(returns){
@@ -24,6 +40,14 @@ return(list(A=A,b=b,meq=meq,cname="cset.lo"))
 }
 
 
+#' Constraint specifications
+#' @param NULL
+#' @details 
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @family constraints
+#' @examples
+#' @export
 
 # Box Constraints
 cset.box <- function(returns,upper,lower){
@@ -49,6 +73,14 @@ return(list(A=A,b=b,meq=meq,cname="cset.box"))
 }
 
 
+#' Constraint specifications
+#' @param NULL
+#' @details 
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @family constraints
+#' @examples
+#' @export
 
 # Group Constraints 
 cset.groups <- function(returns=returns8,
@@ -97,6 +129,14 @@ return(list(A=A,b=b,meq=meq,cname="cset.groups"))
 }
 
 
+#' Constraint specifications
+#' @param NULL
+#' @details 
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @family constraints
+#' @examples
+#' @export
 
 # Turnover Constraints
 cset.turnover <- function(returns,toc,w.initial){
@@ -121,6 +161,14 @@ cset.turnover <- function(returns,toc,w.initial){
   return(list(A=A,b=b,meq=meq,cname="cset.turnover"))
 }
 
+#' Constraint specifications
+#' @param NULL
+#' @details 
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @family constraints
+#' @examples
+#' @export
 
 # Turnover Constraints made by Doug
 cset.turnover.doug <- function(returns,toc,w.initial){
@@ -150,6 +198,14 @@ cset.turnover.doug <- function(returns,toc,w.initial){
 
 
 
+#' Constraint specifications
+#' @param NULL
+#' @details 
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @family constraints
+#' @examples
+#' @export
 
 #Proportional Cost Constraints
 cset.propcost<- function(returns, ptc,w.initial){
@@ -183,6 +239,14 @@ cset.propcost<- function(returns, ptc,w.initial){
   return(list(A=A,b=b,meq=n.eq,cname="cset.propcost"))
 }
 
+#' Constraint specifications
+#' @param NULL
+#' @details 
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @family constraints
+#' @examples
+#' @export
 # Target MU Constraints
 cset.mu.target <- function(returns, mu.target){
   p = ncol(returns)
@@ -195,12 +259,28 @@ cset.mu.target <- function(returns, mu.target){
 }
 
 
+#' Constraint specifications
+#' @param NULL
+#' @details 
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @family constraints
+#' @examples
+#' @export
 
 cset.fixed <- function(returns, fixed.cost, wmax, wmin){
     
   # TBA
 }
 
+#' Constraint specifications
+#' @param NULL
+#' @details 
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @family constraints
+#' @examples
+#' @export
 # Modify constaints when turnover kicks in
 turnover.modify <- function(cset=cset.i){
   switch(cset$cname,
@@ -254,6 +334,14 @@ turnover.modify <- function(cset=cset.i){
   
 
 
+#' Constraint specifications
+#' @param NULL
+#' @details 
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @family constraints
+#' @examples
+#' @export
 
 # Modify constaints when turnover kicks in
 turnover.doug.modify <- function(cset=cset.i){
@@ -314,6 +402,14 @@ turnover.doug.modify <- function(cset=cset.i){
 	
 }
 
+#' Constraint specifications
+#' @param NULL
+#' @details 
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @family constraints
+#' @examples
+#' @export
 
 # Modify constaints when propcost kicks in
 propcost.modify <- function(cset=cset.i){
@@ -362,7 +458,14 @@ propcost.modify <- function(cset=cset.i){
 }
 
 
-
+#' Constraint specifications
+#' @param NULL
+#' @details 
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @family constraints
+#' @examples
+#' @export
 # Combine multiple constraints
 combine.cset <- function(clist=c(  "sum", 
                                    "lo",
@@ -484,15 +587,4 @@ combine.cset <- function(clist=c(  "sum",
 
 
 
-
-# 
-# #optional long only constraint
-# if(long.only == TRUE){
-#   if ( length(w.initial[w.initial<0]) > 0 ){
-#     stop("Long-Only specified but some initial weights are negative")
-#   }
-#   constraint.long.only <- rbind(diag(p),diag(p),diag(p))
-#   A <- cbind(A, constraint.long.only)
-#   b <- c(b,rep(0,p))
-# }
 

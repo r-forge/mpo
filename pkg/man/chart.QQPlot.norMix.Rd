@@ -86,6 +86,14 @@ the reference line, the greater the evidence that the data set have come
 from a population with a different distribution.
 }
 \examples{
+library(MASS)
+library(PerformanceAnalytics)
+data(managers)
+x = checkData(managers[,2, drop = FALSE], na.rm = TRUE, method = "vector")
+Panel 1: Mixture Normal distribution
+chart.QQPlot.norMix(x, main = "Normal Mixture Distribution",
+   line=c("quartiles"), para=list(m=2), distribution = 'mixnormal', 
+	envelope=0.95)
 
 #end examples
 

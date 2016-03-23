@@ -28,13 +28,13 @@ gmv = function(returns,cset=NULL,wts.only=T,digits = NULL)
 	require(corpcor)
    returns.old <- returns
    
-  if (any(c("turnover","propcost") %in% cset$clist.names)){
+  if (any(c("turnover.hobbs","propcost") %in% cset$clist.names)){
       returns <- cbind(returns,returns,returns)      
     } 
 	
 	makenullmat <- function(A){matrix(0,nrow=nrow(A),ncol=ncol(A))}
 	
-  if ("turnover.doug" %in% cset$clist.names){
+  if ("turnover" %in% cset$clist.names){
 		returns <- cbind(returns,makenullmat(returns),makenullmat(returns))      
 	} 
 	
@@ -59,7 +59,7 @@ gmv = function(returns,cset=NULL,wts.only=T,digits = NULL)
     port.gmv = solve.QP(Dmat,dvec,A,b,meq)
     wts = port.gmv$solution      # Get optimal weights
     
-    if (any(c("turnover","propcost") %in% cset$clist.names)){
+    if (any(c("turnover.hobbs","propcost") %in% cset$clist.names)){
       wts = wts[1:(p/3)]+wts[(p/3+1):(p/3*2)]+wts[(p/3*2+1):p]
       mu = sum(wts*mu[1:(p/3)])
       wts = as.matrix(wts)
@@ -67,7 +67,7 @@ gmv = function(returns,cset=NULL,wts.only=T,digits = NULL)
       wts = as.numeric(wts)
       names(wts)= dimnames(returns.old)[[2]]
     } 
-	else if("turnover.doug" %in% cset$clist.names){
+	else if("turnover" %in% cset$clist.names){
 		wts = wts[1:(p/3)]
 		mu = sum(wts*mu[1:(p/3)])
 		wts = as.matrix(wts)
@@ -193,7 +193,7 @@ mvo = function(returns,mu0,cset=NULL,wts.only=T,digits = NULL)
   
   returns.old <- returns
   
-  if (any(c("turnover","propcost") %in% cset$clist.names)){
+  if (any(c("turnover.hobbs","propcost") %in% cset$clist.names)){
     returns <- cbind(returns,returns,returns)      
   } 
   
@@ -201,7 +201,7 @@ mvo = function(returns,mu0,cset=NULL,wts.only=T,digits = NULL)
   makenullmat <- function(A){matrix(0,nrow=nrow(A),ncol=ncol(A))}
   
   
-  if ("turnover.doug" %in% cset$clist.names){
+  if ("turnover" %in% cset$clist.names){
 	  returns <- cbind(returns,makenullmat(returns),makenullmat(returns))      
   } 
   
@@ -225,14 +225,14 @@ mvo = function(returns,mu0,cset=NULL,wts.only=T,digits = NULL)
   port.gmv = solve.QP(Dmat,dvec,A,b,meq)
   wts = port.gmv$solution      # Get optimal weights
   
-  if (any(c("turnover","propcost") %in% cset$clist.names)){
+  if (any(c("turnover.hobbs","propcost") %in% cset$clist.names)){
     wts = wts[1:(p/3)]+wts[(p/3+1):(p/3*2)]+wts[(p/3*2+1):p]
     mu = sum(wts*mu[1:(p/3)])
     wts = as.matrix(wts)
     sd = as.numeric(sqrt((t(wts)%*%cov(returns.old)%*%wts)))
     wts = as.numeric(wts)
     names(wts)= dimnames(returns.old)[[2]]
-  }      else if("turnover.doug" %in% cset$clist.names){
+  }      else if("turnover" %in% cset$clist.names){
 	  wts = wts[1:(p/3)]
 	  mu = sum(wts*mu[1:(p/3)])
 	  wts = as.matrix(wts)

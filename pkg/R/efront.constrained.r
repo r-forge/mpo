@@ -22,10 +22,10 @@ efrontMV = function(returns,cset = NULL, list.arg= NULL, npoints = 10)
     mu.min = minmu(returns)
     mu.max = 1.2*max(mu)}     else
     {
-      if (any(c("turnover","turnover.doug","propcost") %in% cset$clist.names)){ # find max mu without turnover/propcost constraint, since Rglpk doesn't work with turnover/propcost
+      if (any(c("turnover.hobbs","turnover","propcost") %in% cset$clist.names)){ # find max mu without turnover/propcost constraint, since Rglpk doesn't work with turnover/propcost
         if(length(cset$clist.names)>1){
 	
-      index.mu <- which (cset$clist.names %in% c("turnover","turnover.doug","propcost"))
+      index.mu <- which (cset$clist.names %in% c("turnover.hobbs","turnover","propcost"))
       clist.mu <- c(cset$clist.names[-index.mu],"sum")  
       cset.mu <- combine.cset(clist=clist.mu,returns=returns,list.arg,verbose=F)
       mu.min = minmu(returns,cset.mu)
@@ -91,9 +91,9 @@ efrontPlot = function(returns,cset = NULL,mu.min = NULL, mu.max = NULL, rf = NUL
     xlim = c(0,max(sigma));ylim = range(mu);ylim[1] = ylim[1]-.05*diff(ylim)
     ylim[1] = min(min(efront[,1]),ylim[1])
     ylim[2] = max(max(efront[,1]),ylim[2])
-    if(wts.plot) {par(mfrow = c(1,2), mgp= c(5, 2, 0), mar=c(8,4,4,2)+0.1)}
+    if(wts.plot) {par(mfrow = c(1,2), mgp= c(4, 2, 0), mar=c(8,6,4,2)+0.1)}
     plot(efront[,2],efront[,1],type = "l",col = 4,lwd = 2, xlab = "VOL",ylab = "MU", xlim = xlim,
-            ylim = ylim, main = "MV EFFICIENT FRONTIER")
+            ylim = ylim, main = "MV Efficient Frontier")
     points(sigma,mu,pch = 20)
     text(sigma,mu, labels = dimnames(returns)[[2]],pos = 1, cex = .7)
     # If risk-free rate is supplied, get Sharpe ratio and plot tangent line
@@ -128,7 +128,9 @@ efrontPlot = function(returns,cset = NULL,mu.min = NULL, mu.max = NULL, rf = NUL
 #     MU <- efront[,"MU"]
 #     SD <- efront[,"SD"]
     if(wts.plot)
-    {barplot.wts(wts.efront,legend.text = T,col = topo.colors(p),ylab = "WEIGHTS",xlab = wts.xlab, bar.ylim = bar.ylim)}
+    {
+      barplot.wts(wts.efront,legend.text = T,col = topo.colors(p),ylab = "WEIGHTS",xlab = wts.xlab, bar.ylim = bar.ylim)
+      }
     par(mfrow = c(1,1))
 }
 

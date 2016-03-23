@@ -43,7 +43,7 @@
 #"groups"
 #"mu.target"
 #"turnover"
-#"turnover.doug"
+#"turnover"
 #"propcost"
 #
 #
@@ -91,7 +91,7 @@
 #mtext(paste(clist,collapse="_"),side=1,line=3)
 #
 #
-#clist <- c("sum","box","turnover.doug")
+#clist <- c("sum","box","turnover")
 #list.arg <- list(sum=sum,
 #		upper=upper,
 #		lower=lower,

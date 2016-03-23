@@ -139,39 +139,8 @@ return(list(A=A,b=b,meq=meq,cname="cset.groups"))
 #' @export
 
 # Turnover Constraints
+
 cset.turnover <- function(returns,toc,w.initial){
-  p = ncol(returns)
-  constraint.turnover <- c(rep(0,p),rep(-1,p),rep(1,p))
-  constraint.weights.initial <- rbind(diag(p),matrix(0,ncol=p,nrow=p*2))
-  constraint.weights.positive <-
-    rbind(matrix(0,ncol=2*p,nrow=p),diag(2*p))
-  temp.index <- (p*3-p+1):(p*3)
-  #need to flip sign for w_sell
-  constraint.weights.positive[temp.index,]<-
-    constraint.weights.positive[temp.index,]*-1
-  
-  A <- cbind(constraint.weights.initial,
-                constraint.turnover, constraint.weights.positive)
-  colnames(A) <- c( paste("c.winit",1:ncol(constraint.weights.initial),sep=""),
-                    "c.turnover",
-                    paste("c.wpos",1:ncol(constraint.weights.positive),sep=""))
-  b <- c(w.initial,-toc,rep(0,2*p))
-  meq <- p
-  
-  return(list(A=A,b=b,meq=meq,cname="cset.turnover"))
-}
-
-#' Constraint specifications
-#' @param NULL
-#' @details 
-#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
-#' @keywords constraint
-#' @family constraints
-#' @examples
-#' @export
-
-# Turnover Constraints made by Doug
-cset.turnover.doug <- function(returns,toc,w.initial){
 	p = ncol(returns)
 	constraint.turnover <- c(rep(0,p),rep(-1,p),rep(1,p))
 #	constraint.weights.initial <- rbind(diag(p),matrix(0,ncol=p,nrow=p*2))
@@ -191,6 +160,39 @@ cset.turnover.doug <- function(returns,toc,w.initial){
 			paste("c.wpos",1:ncol(constraint.weights.positive),sep=""))
 	b <- c(w.initial,-toc,rep(0,2*p))
 	meq <- p+1
+	return(list(A=A,b=b,meq=meq,cname="cset.turnover"))
+}
+
+
+#' Constraint specifications
+#' @param NULL
+#' @details 
+#' @author Kirk Li  \email{kirkli@@stat.washington.edu} 
+#' @keywords constraint
+#' @family constraints
+#' @examples
+#' @export
+
+# Turnover Constraints made by hobbs
+cset.turnover.hobbs <- function(returns,toc,w.initial){
+	p = ncol(returns)
+	constraint.turnover <- c(rep(0,p),rep(-1,p),rep(1,p))
+	constraint.weights.initial <- rbind(diag(p),matrix(0,ncol=p,nrow=p*2))
+	constraint.weights.positive <-
+			rbind(matrix(0,ncol=2*p,nrow=p),diag(2*p))
+	temp.index <- (p*3-p+1):(p*3)
+	#need to flip sign for w_sell
+	constraint.weights.positive[temp.index,]<-
+			constraint.weights.positive[temp.index,]*-1
+	
+	A <- cbind(constraint.weights.initial,
+			constraint.turnover, constraint.weights.positive)
+	colnames(A) <- c( paste("c.winit",1:ncol(constraint.weights.initial),sep=""),
+			"c.turnover",
+			paste("c.wpos",1:ncol(constraint.weights.positive),sep=""))
+	b <- c(w.initial,-toc,rep(0,2*p))
+	meq <- p
+	
 	return(list(A=A,b=b,meq=meq,cname="cset.turnover"))
 }
 
@@ -282,7 +284,7 @@ cset.fixed <- function(returns, fixed.cost, wmax, wmin){
 #' @examples
 #' @export
 # Modify constaints when turnover kicks in
-turnover.modify <- function(cset=cset.i){
+turnover.hobbs.modify <- function(cset=cset.i){
   switch(cset$cname,
           "cset.sum" = {
             cset.new <- cset
@@ -344,7 +346,7 @@ turnover.modify <- function(cset=cset.i){
 #' @export
 
 # Modify constaints when turnover kicks in
-turnover.doug.modify <- function(cset=cset.i){
+turnover.modify <- function(cset=cset.i){
 	
 	makenullmat <- function(A){matrix(0,nrow=nrow(A),ncol=ncol(A))}
 	
@@ -472,8 +474,8 @@ combine.cset <- function(clist=c(  "sum",
                                    "box",
                                    "groups",
                                    "mu.target",
-                                   "turnover",
-								   "turnover.doug",
+                                   "turnover.hobbs",
+								   								 "turnover",
                                    "propcost"),
                          returns=returns,
                          list.arg=
@@ -492,17 +494,23 @@ combine.cset <- function(clist=c(  "sum",
   
   clist <- unique(clist)
   
-  if("turnover" %in% clist)
-    is.turnover <- TRUE else is.turnover <- FALSE
+  if("turnover.hobbs" %in% clist)
+    is.turnover.hobbs <- TRUE else is.turnover.hobbs <- FALSE
   if("propcost" %in% clist)
     is.propcost <- TRUE else is.propcost <- FALSE
-  if("turnover.doug" %in% clist)
-	is.turnover.doug <- TRUE else is.turnover.doug <- FALSE
+  if("turnover" %in% clist)
+	is.turnover <- TRUE else is.turnover <- FALSE
 
   clist.names <- clist
   arg.sum.list <- list.arg
   arg.sum.list$returns <- returns
   cset <- list(NA)
+  
+	if(!any(c("sum","propcost")%in% clist.names )){
+		clist.names <- c("sum",clist.names)
+		arg.sum.list$sum = 1
+	}
+  
   # loop through each constraint
   for ( i in 1:length(clist.names)){
 	if(verbose)
@@ -519,12 +527,12 @@ combine.cset <- function(clist=c(  "sum",
     cset.i <- do.call(clist.names.i,arg.sum.list[args.names])    
     
 	# these three constraints cannot be together
-    if (is.turnover & !(clist.names.i %in% c("cset.turnover","cset.turnover.doug","cset.propcost"))){
-     cset[[i]] <- turnover.modify (cset.i)
+    if (is.turnover.hobbs & !(clist.names.i %in% c("cset.turnover.hobbs","cset.turnover","cset.propcost"))){
+     cset[[i]] <- turnover.hobbs.modify (cset.i)
     } 
-	else if(is.turnover.doug & !(clist.names.i %in% c("cset.turnover","cset.turnover.doug","cset.propcost")))
-	cset[[i]] <- turnover.doug.modify (cset.i)
-	else if(is.propcost & !(clist.names.i %in% c("cset.turnover","cset.turnover.doug","cset.propcost")))
+	else if(is.turnover & !(clist.names.i %in% c("cset.turnover.hobbs","cset.turnover","cset.propcost")))
+	cset[[i]] <- turnover.modify (cset.i)
+	else if(is.propcost & !(clist.names.i %in% c("cset.turnover.hobbs","cset.turnover","cset.propcost")))
     {
      cset[[i]] <- propcost.modify(cset.i)
     } else

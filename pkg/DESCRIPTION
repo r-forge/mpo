@@ -10,6 +10,7 @@ Description: MPO is a companion package to the text Modern Portfolio
     Yollin.
 License: GPL-2
 Depends:
+    boot,
     xts,
     lattice,
     robust,

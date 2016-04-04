@@ -18,9 +18,9 @@ Other constraints: \code{\link{combine.cset}},
   \code{\link{cset.groups}}, \code{\link{cset.lo}},
   \code{\link{cset.mu.target}},
   \code{\link{cset.propcost}}, \code{\link{cset.sum}},
-  \code{\link{cset.turnover.doug}},
+  \code{\link{cset.turnover.hobbs}},
   \code{\link{propcost.modify}},
-  \code{\link{turnover.doug.modify}},
+  \code{\link{turnover.hobbs.modify}},
   \code{\link{turnover.modify}}
 }
 \keyword{constraint}

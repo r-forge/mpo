@@ -76,18 +76,17 @@
 #' SharpeRatio(edhec,Rf = .04/12)
 #' 
 #' # bootstrap sd
-#' R =managers[,1:2,drop=FALSE]
 #' SharpeRatio(edhec[, 6, drop = FALSE], Rf = .04/12, FUN="VaR", bootsd=TRUE)
 #' 
 #' @export 
 #' @rdname SharpeRatio
 SharpeRatio <-
-function (R, Rf = 0, p = 0.95, method = c("StdDev", "VaR", "ES"), 
+function (R, Rf = 0, p = 0.95, FUN = c("StdDev", "VaR", "ES"), 
 		weights = NULL, annualize = FALSE, bootsd = FALSE, ...) 
 {
 	R = checkData(R)
 	
-	method <- match.arg(method)
+	FUN <- match.arg(FUN)
 	
 	if (!is.null(dim(Rf))) 
 		Rf = checkData(Rf)
@@ -143,20 +142,20 @@ function (R, Rf = 0, p = 0.95, method = c("StdDev", "VaR", "ES"),
 	
 	i = 1
 	if (is.null(weights)) {
-		result = matrix(nrow = length(method), ncol = ncol(R))
+		result = matrix(nrow = length(FUN), ncol = ncol(R))
 		colnames(result) = colnames(R)
 		if(bootsd){
 			result.boot.sd = matrix(nrow=length(FUN), ncol=ncol(R))
 			}
 	}
 	else {
-		result = matrix(nrow = length(method))
+		result = matrix(nrow = length(FUN))
 	}
 	tmprownames = vector()
 	
 	if(bootsd) require(boot)
 	
-	for (FUNCT in method) {
+	for (FUNCT in FUN) {
 		if (is.null(weights)) {
 			if (annualize) {
 				result[i, ] = sapply(R, FUN = sra, Rf = Rf, p = p, 

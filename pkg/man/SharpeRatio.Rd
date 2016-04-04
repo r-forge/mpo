@@ -6,7 +6,7 @@
 \title{calculate a traditional or modified Sharpe Ratio of Return over StdDev or
 VaR or ES, accompanied with bootstrap of standard error.}
 \usage{
-SharpeRatio(R, Rf = 0, p = 0.95, method = c("StdDev", "VaR", "ES"),
+SharpeRatio(R, Rf = 0, p = 0.95, FUN = c("StdDev", "VaR", "ES"),
   weights = NULL, annualize = FALSE, bootsd = FALSE, ...)
 }
 \arguments{
@@ -17,12 +17,12 @@ asset returns}
 
 \item{p}{confidence level for calculation, default p=.95}
 
+\item{FUN}{one of "StdDev" or "VaR" or "ES" to use as the denominator}
+
 \item{weights}{portfolio weighting vector, default NULL, see Details in
 \code{\link{VaR}}}
 
 \item{annualize}{if TRUE, annualize the measure, default FALSE}
-
-\item{FUN}{one of "StdDev" or "VaR" or "ES" to use as the denominator}
 
 \item{\dots}{any other passthru parameters to the VaR or ES functions}
 }

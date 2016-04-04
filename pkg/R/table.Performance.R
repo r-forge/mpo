@@ -29,7 +29,7 @@
 #' @seealso \code{\link{table.Performance.pool}},\code{\link{table.Performance.pool.cran}},\code{\link{table.Arbitrary}}
 #' @keywords table metrics performance measure
 #' @examples
-#' 
+#'  \dontrun{
 #' library(PerformanceAnalytics,lib="C:/R/R-3.1.0/library_forge")
 #' data(edhec)
 #' 
@@ -69,7 +69,7 @@
 #' # Example 6: Export XLSX 
 #' res.ex6 <- table.Performance(R=edhec,metrics=c("VaR", "ES"), interactive=FALSE, 
 #' arg.list=arg.list, verbose=T, digits=4, latex=TRUE, exportXLS=TRUE,ExcelFileName="PerformanceReport.xls")
-#' 
+#' }
 #' 
 #' @export
 table.Performance <-

@@ -80,8 +80,7 @@ SharpeRatio(managers[,1:9], Rf = managers[,10,drop=FALSE])
 SharpeRatio(edhec,Rf = .04/12)
 
 # bootstrap sd
-R =managers[,1:2,drop=FALSE]
-SharpeRatio(edhec[, 6, drop = FALSE], Rf = .04/12, FUN="VaR", bootsd=TRUE)
+# SharpeRatio(edhec[, 6, drop = FALSE], Rf = .04/12, FUN="VaR", bootsd=TRUE)
 
 }
 \author{

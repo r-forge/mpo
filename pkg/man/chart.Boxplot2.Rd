@@ -77,24 +77,24 @@ library(MASS)
 library(PerformanceAnalytics)
 data(edhec)
 
-Panel 1: vertical box, sort by Sortino ratio
+# Panel 1: vertical box, sort by Sortino ratio
 
 chart.Boxplot2(R=edhec ,sort.by="Sortino ratio",
 horizontal=FALSE , as.Tufte=TRUE)
 
 
-Panel 2: horizontal box, sort by Sortino ratio 
+# Panel 2: horizontal box, sort by Sortino ratio 
 
 chart.Boxplot2(R=edhec ,sort.by="Sortino ratio",
 horizontal=TRUE, as.Notch=TRUE)
 
-Panel 3: vertical box, sort by mean, with base order variance
+# Panel 3: vertical box, sort by mean, with base order variance
 
 chart.Boxplot2(R=edhec ,sort.by="mean", horizontal=FALSE
 , sort.base="variance", sort.ascending=TRUE)
 
-Panel 4: horizontal box, sort by mean, with base order variance
- descending sort
+# Panel 4: horizontal box, sort by mean, with base order variance
+# descending sort
 
 chart.Boxplot2(R=edhec ,sort.by="mean", horizontal=FALSE
 , sort.base="variance", sort.ascending=FALSE)

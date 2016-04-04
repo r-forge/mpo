@@ -50,7 +50,7 @@ use \code{table.Performance.pool} to check available metrics. recoded SharpeRati
 Both interactive and fixed input on metric set and optional arguments. Output latex code for resulting table. Export function that uses the same metrics and optional argument from interactive input.
 }
 \examples{
-
+ \dontrun{
 library(PerformanceAnalytics,lib="C:/R/R-3.1.0/library_forge")
 data(edhec)
 
@@ -89,7 +89,7 @@ args(myfun1)
 # Example 6: Export XLSX 
 res.ex6 <- table.Performance(R=edhec,metrics=c("VaR", "ES"), interactive=FALSE, 
 arg.list=arg.list, verbose=T, digits=4, latex=TRUE, exportXLS=TRUE,ExcelFileName="PerformanceReport.xls")
-
+}
 
 }
 \author{

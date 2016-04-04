@@ -76,7 +76,7 @@
 #' SharpeRatio(edhec,Rf = .04/12)
 #' 
 #' # bootstrap sd
-#' SharpeRatio(edhec[, 6, drop = FALSE], Rf = .04/12, FUN="VaR", bootsd=TRUE)
+#' # SharpeRatio(edhec[, 6, drop = FALSE], Rf = .04/12, FUN="VaR", bootsd=TRUE)
 #' 
 #' @export 
 #' @rdname SharpeRatio

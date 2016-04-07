@@ -14,6 +14,7 @@ Depends:
     xts,
     lattice,
     mvtnorm,
+    nor1mix,
     rrcov,
     robust,
     PortfolioAnalytics,

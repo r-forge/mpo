@@ -1,3 +1,4 @@
 library("testthat")
 library(mpo)
-test_package("mpo")
+#test_package("mpo")
+

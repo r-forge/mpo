@@ -60,7 +60,7 @@
 #' arg.list=arg.list, verbose=T, digits=4, latex=TRUE)
 #'
 #' # Example 5: Export function 
-#' res.ex5 <- table.Performance(R=edhec,metrics=c("VaR", "ES"), interactive=TRUE, verbose=T,
+#' res.ex5 <- table.Performance(R=edhec,metrics=c("VaR", "ES"), interactive=TRUE, verbose=F,
 #' digits=4, latex=FALSE, exportFun="myfun1", flag.pre.arg.list=FALSE)
 #' myfun1(R=edhec)  
 #' # myfun1 uses res.ex5's metrics and optional arguments 
@@ -279,7 +279,7 @@ table.Performance <-
 		print(xtable(res$resultingtable,digits=digits,...))
 	}
 	
-	if(!is.null(exportFun)){
+	if(!is.null(exportFun) & exportFun!="ING"){
 		if(!is.character(exportFun))
 			warning("exportFun is mis-specified")
 		else{
@@ -289,7 +289,7 @@ table.Performance <-
 			
 			string1 <- paste(exportFun,"<<-","function(R,metrics=",'c(',paste(paste0("'",metrics,"'"),collapse=','),')',", metricsNames=",'c(',paste(paste0("'",metricsNames,"'"),collapse=','),')', ", verbose=FALSE, interactive=FALSE, arg.list=",arg.list.string,", digits=4, latex = FALSE, exportFun=NULL,...)")
 			
-			string2 <- paste("{table.Performance(R=R,metrics=metrics,metricsNames=metricsNames,verbose=verbose,interactive=interactive,arg.list=arg.list,digits=digits,latex=latex,exportFun=exportFun,flag.pre.arg.list=TRUE,...)}")
+			string2 <- paste("{table.Performance(R=R,metrics=metrics,metricsNames=metricsNames,verbose=FALSE,interactive=interactive,arg.list=arg.list,digits=digits,latex=latex,exportFun='ING',flag.pre.arg.list=TRUE,...)}")
 			
 			
 			eval(parse(text=paste0(string1,string2)))
@@ -313,7 +313,8 @@ table.Performance <-
     WriteXLS("temp",row.names = TRUE,ExcelFileName=ExcelFileName )
     
   }
-	return(res)
+	if(exportFun!="ING")
+	return(res) else(invisible(res))
 }
 
 

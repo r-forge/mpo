@@ -1,3 +1,4 @@
+data(mdicap.ts)
 context("Test functions")
 
 test_that("mathGmv is as expected", {

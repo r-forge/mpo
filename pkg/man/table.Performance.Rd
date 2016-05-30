@@ -51,7 +51,6 @@ Both interactive and fixed input on metric set and optional arguments. Output la
 }
 \examples{
  \dontrun{
-library(PerformanceAnalytics,lib="C:/R/R-3.1.0/library_forge")
 data(edhec)
 
 # Example 1: start with NULL specification

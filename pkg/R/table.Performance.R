@@ -169,6 +169,7 @@ table.Performance <-
 		# Extract the first argument and if it is NULL, replace with _NULL_
 		arg.list <- lapply(arg.list,function(x){
 					lapply(x,function(xx){
+								if(is.xts(xx)) t1 <- xx else
 								t1 <- xx[1]
 								if (is.null(t1))
 									t1 <-"_NULL_"	
@@ -228,6 +229,11 @@ table.Performance <-
 				ArgString.i <- paste(ArgString.i,collapse =", ")
 				
 				Arg.mat[[k]] <- ArgString.i
+				
+				
+				eval(parse(	text="apply(x, MARGIN = 2, FUN = metrics[k],Rb=R[,1])"))
+				
+				
 				
 				if(length(ArgString.i)>0 & nchar(ArgString.i)>0)
 					newvalue = eval(parse(text=paste0("apply(x, MARGIN = 2, FUN = metrics[k],",ArgString.i,")"))) else
@@ -322,7 +328,6 @@ table.Performance <-
 		cat("###################################","\n")
 		require(WriteXLS)
 		temp <- res$resultingtable
-		inslib(WriteXLS)
 		WriteXLS("temp",row.names = TRUE,ExcelFileName=ExcelFileName )
 		
 	}
